@@ -77,16 +77,10 @@ textarea{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(
 (function(){
 'use strict';
 var G='Rafael';
-var FORM='https://docs.google.com/forms/d/e/1FAIpQLSfbTEddCkagtORGsP1icSPl0bnWgfuhyG6MI1G4NfAGPosC3A/formResponse';
-var DIMS=[
-  {nome:'Liderança e exemplo',qs:[[530697334,'{G} dá o exemplo: chega no horário e faz o que cobra da equipe.'],[2099861905,'Quando aparece um problema na academia, {G} resolve ou encaminha rápido.']]},
-  {nome:'Comunicação',qs:[[384559313,'Eu sei exatamente o que {G} espera de mim no meu dia de trabalho.'],[1628738698,'{G} avisa a tempo as mudanças, as metas e as informações importantes.']]},
-  {nome:'Cobrança e feedback',qs:[[505013938,'{G} acompanha o meu trabalho e me dá retorno sobre ele.'],[84775073,'Quando cobra, {G} é justo e trata todo mundo do mesmo jeito.'],[1466712739,'{G} reconhece quando eu faço um bom trabalho.']]},
-  {nome:'Respeito e clima',qs:[[1434007918,'{G} me trata com respeito, mesmo em dia corrido ou sob pressão.'],[1432484605,'Eu me sinto à vontade para levar um problema ou uma ideia para {G}.']]},
-  {nome:'Apoio',qs:[[2131649372,'Quando tenho dificuldade, {G} me ajuda a resolver.'],[421269970,'{G} me dá o que eu preciso para fazer bem o meu trabalho: orientação, materiais e acesso ao sistema.']]}
-];
-var NPS=[336937483,'De 0 a 10, quanto você indicaria {G} como gerente para um amigo que viesse trabalhar aqui?'];
-var ABERTAS=[[1753781146,'O que {G} faz bem e deve continuar fazendo?'],[513939403,'O que {G} precisa melhorar?'],[312618681,'Mais alguma coisa que a direção precisa saber?']];
+var FORM='https://docs.google.com/forms/d/e/1FAIpQLSeamH3HH7gTYMs1IOgewXyfBQbzUv3Rzv-WU8RVSPZTCLxsGg/formResponse';
+var DIMS=[{"nome": "Liderança", "qs": [[1186891437, "{G} demonstra segurança e preparo para liderar a equipe."], [2019851607, "{G} dá o exemplo: chega no horário e faz o que cobra da equipe."], [1128249335, "{G} está disponível quando a equipe precisa de orientação."], [762867443, "{G} inspira confiança e transmite credibilidade como líder."]]}, {"nome": "Comunicação", "qs": [[1769532828, "{G} transmite as informações de maneira clara."], [1004890872, "Eu sei exatamente o que {G} espera de mim no meu dia de trabalho."], [1141643553, "{G} escuta as opiniões e sugestões da equipe."], [514752447, "{G} comunica mudanças, metas e decisões com antecedência."], [767919259, "{G} está aberto a receber críticas e opiniões diferentes."], [1263700259, "{G} mantém uma comunicação respeitosa, mesmo em situações difíceis."]]}, {"nome": "Relacionamento e comportamento", "qs": [[698629276, "{G} trata todos os colaboradores com respeito."], [1840038908, "{G} trata todos de forma igual, sem favorecimentos."], [292767194, "{G} mantém uma postura profissional no ambiente de trabalho."], [354780246, "{G} sabe separar questões pessoais das profissionais."], [1245388293, "{G} demonstra equilíbrio emocional em situações de pressão."], [2035702292, "{G} contribui para um ambiente de trabalho positivo."], [839869214, "Eu me sinto à vontade para levar um problema ou uma ideia para {G}."]]}, {"nome": "Organização e gestão", "qs": [[918071223, "{G} demonstra organização na condução das atividades."], [1949780705, "{G} distribui as responsabilidades de maneira justa."], [1376825604, "{G} acompanha e orienta a execução das tarefas."], [616763391, "{G} resolve os problemas da academia de maneira rápida e eficiente."], [1327808465, "{G} assume a responsabilidade quando algo não sai como o esperado."], [2014129197, "{G} me dá o que eu preciso para fazer bem o meu trabalho: orientação, materiais e acesso ao sistema."]]}, {"nome": "Resolução de conflitos", "qs": [[1980266537, "{G} age com imparcialidade diante de conflitos."], [242751762, "{G} ouve todos os envolvidos antes de tomar uma decisão."], [783409093, "{G} resolve problemas sem expor ou constranger os colaboradores."], [1731752021, "{G} sabe lidar com situações de desentendimento."], [884475437, "{G} busca soluções em vez de procurar culpados."]]}, {"nome": "Desenvolvimento e motivação", "qs": [[2096464208, "{G} reconhece o esforço e os resultados da equipe."], [1109245734, "{G} demonstra interesse pelo crescimento profissional dos colaboradores."], [514944040, "{G} dá feedbacks construtivos."], [1086148917, "{G} motiva a equipe a alcançar melhores resultados."], [276896278, "{G} faz os colaboradores se sentirem valorizados."]]}];
+var NPS=[846406407, "De 0 a 10, quanto você indicaria {G} como gerente para um amigo que viesse trabalhar aqui?"];
+var ABERTAS=[[125726944, "Na sua opinião, qual é a maior qualidade de {G}?"], [244555326, "O que {G} precisa melhorar como líder?"], [405175204, "Você se sente confortável para conversar com {G} quando tem algum problema? Por quê?"], [938242933, "Existe alguma atitude de {G} que prejudica o relacionamento ou o desempenho da equipe?"], [435464417, "O que você gostaria que {G} fizesse diferente para melhorar o ambiente de trabalho?"], [229688609, "Se pudesse dar um conselho a {G} para melhorar a liderança dele, qual seria?"], [1009481858, "Mais alguma coisa que a direção precisa saber?"]];
 var ESCALA=['Discordo totalmente','Discordo','Neutro','Concordo','Concordo totalmente'];
 var QS=[];DIMS.forEach(function(d){d.qs.forEach(function(q){QS.push(q[0]);});});
 var R={},TXT={},nps=null,falta=false,enviando=false,erro='';
@@ -99,7 +93,7 @@ function feitas(){return QS.filter(function(k){return R[k];}).length+(nps!=null?
 
 function form(){
   var h='<section class="panel"><span class="lbl">Avaliação anônima</span><h2 class="h2">Como você avalia '+G+' como gerente?</h2>'+
-    '<p class="lead">Leva uns 5 minutos. Responda pensando nas últimas semanas de trabalho, com sinceridade. O objetivo é melhorar o dia a dia de todo mundo.</p>'+
+    '<p class="lead">Leva uns 10 minutos. Responda pensando nas últimas semanas de trabalho, com sinceridade. O objetivo é melhorar o dia a dia de todo mundo.</p>'+
     '<ul class="anon"><li><b>Sua resposta é anônima.</b> Você não entra em nenhuma conta, e seu nome e seu e-mail não são coletados.</li>'+
     '<li>'+G+' não tem acesso às respostas. Só a direção vê o resultado geral.</li>'+
     '<li>Nos comentários, evite citar o seu turno ou um dia específico.</li></ul></section>';
@@ -113,7 +107,8 @@ function form(){
   h+='<section class="panel"><span class="lbl">Parte '+(DIMS.length+1)+' de '+(DIMS.length+1)+'</span><h2 class="h2">Visão geral</h2><div class="qs">'+
     '<div class="q'+(falta&&nps==null?' falta':'')+'" id="q-nps"><p class="qt">'+esc(tx(NPS[1]))+'</p><div class="nps" role="radiogroup" aria-label="Nota de 0 a 10">'+
     [0,1,2,3,4,5,6,7,8,9,10].map(function(n){return '<button type="button" class="lk" role="radio" aria-checked="'+(nps===n)+'" aria-label="Nota '+n+'" data-nps="'+n+'">'+n+'</button>';}).join('')+
-    '</div><div class="ends"><span>0 · Não indicaria</span><span>Indicaria com certeza · 10</span></div></div>'+
+    '</div><div class="ends"><span>0 · Não indicaria</span><span>Indicaria com certeza · 10</span></div></div></div></section>'+
+    '<section class="panel"><span class="lbl">Opcional</span><h2 class="h2">Com as suas palavras</h2><div class="qs">'+
     ABERTAS.map(function(a){return '<div class="q"><label class="qt" for="t-'+a[0]+'">'+esc(tx(a[1]))+' <span class="muted small">(opcional)</span></label><textarea id="t-'+a[0]+'" data-t="'+a[0]+'" rows="3" maxlength="1000">'+esc(TXT[a[0]]||'')+'</textarea></div>';}).join('')+
     '</div></section>';
   if(erro)h+='<div class="erro">'+esc(erro)+'</div>';
@@ -124,7 +119,7 @@ function fim(){
   return '<section class="panel fim"><span class="ok-mark" aria-hidden="true">✓</span><h2 class="h2">Avaliação enviada. Obrigado!</h2>'+
     '<p>Sua resposta entrou sem o seu nome. Ela ajuda a direção a melhorar a gestão da academia.</p>'+'</section>';
 }
-function render(){view.innerHTML=ls('aval-gerente-2026-11')==='1'?fim():form();}
+function render(){view.innerHTML=ls('aval-gerente-v2')==='1'?fim():form();}
 
 view.addEventListener('input',function(e){var t=e.target;if(t.dataset.t)TXT[t.dataset.t]=t.value;});
 view.addEventListener('click',function(e){
@@ -153,10 +148,10 @@ function enviar(){
   QS.forEach(function(k){p.append('entry.'+k,String(R[k]));});
   p.append('entry.'+NPS[0],String(nps));
   ABERTAS.forEach(function(a){var v=String(TXT[a[0]]||'').trim();if(v)p.append('entry.'+a[0],v.slice(0,1000));});
-  p.append('pageHistory','0,1,2,3,4,5');
+  p.append('pageHistory','0,1,2,3,4,5,6,7');
   enviando=true;erro='';render();
   fetch(FORM,{method:'POST',mode:'no-cors',body:p}).then(function(){
-    ls('aval-gerente-2026-11','1');enviando=false;render();window.scrollTo(0,0);
+    ls('aval-gerente-v2','1');enviando=false;render();window.scrollTo(0,0);
   },function(){
     enviando=false;erro='Não consegui enviar. Confira a internet e toque em Enviar de novo. Suas respostas continuam marcadas.';render();
   });
